@@ -1,9 +1,9 @@
 # README
 
 ### related urls
-[Mock client repository](https://github.com/Rosith/letsbook-client)
-[Mock client prod app](https://letsbook-client.herokuapp.com/)
-[Mock server prod app](https://letsbook-server.herokuapp.com/)
+* [Client repository](https://github.com/Rosith/letsbook-client)
+* [Client prod app](https://letsbook-client.herokuapp.com/)
+* [Server prod app](https://letsbook-server.herokuapp.com/)
 
 ### set it up
 
