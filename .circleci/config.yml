@@ -15,11 +15,6 @@ jobs:
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: letsbook_test
 
-    working_directory: ~/letsbook-server
-
-    steps:
-      - checkout
-      - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
