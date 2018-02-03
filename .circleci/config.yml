@@ -34,7 +34,7 @@ jobs:
           command:
             yarn db:migrate:test
           environment:
-            TEST_DATABASE_URL: postgres://user@localhost:5432/lp02_team_5_mock_test
+            TEST_DATABASE_URL: postgres://user@localhost:5432/letsbook_test
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: sudo mkdir -p $CIRCLE_TEST_REPORTS/phpunit
