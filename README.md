@@ -1,14 +1,9 @@
-[![CircleCI](https://circleci.com/gh/CognizantStudio/lp02-team-5-mock-server.svg?style=shield&circle-token=74cfcb75f5c33e9227e398f6b7171e62414aa015)](https://circleci.com/gh/CognizantStudio/lp02-team-5-mock-server)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c32883e00a5c2206eca1/maintainability)](https://codeclimate.com/repos/5a022b44478e79028a0003fc/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/c32883e00a5c2206eca1/test_coverage)](https://codeclimate.com/repos/5a022b44478e79028a0003fc/test_coverage)
-
-
 # README
 
 ### related urls
-[Mock client repository](https://github.com/CognizantStudio/lp02-team-5-mock-client)
-[Mock client prod app](https://lp02-team-5-mock-client.herokuapp.com/)
-[Mock server prod app](https://lp02-team-5-mock-server.herokuapp.com/)
+[Mock client repository](https://github.com/Rosith/letsbook-client)
+[Mock client prod app](https://letsbook-client.herokuapp.com/)
+[Mock server prod app](https://letsbook-server.herokuapp.com/)
 
 ### set it up
 

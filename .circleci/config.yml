@@ -15,7 +15,7 @@ jobs:
           POSTGRES_PASSWORD: ""
           POSTGRES_DB: letsbook_test
 
-    working_directory: ~/lp02_team_5_mock_server
+    working_directory: ~/letsbook-server
 
     steps:
       - checkout
