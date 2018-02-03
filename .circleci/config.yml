@@ -34,13 +34,9 @@ jobs:
           command:
             yarn db:migrate:test
           environment:
-            TEST_DATABASE_URL: postgres://user@localhost:5432/lp02_team_5_mock_test
-      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      - run: chmod +x ./cc-test-reporter
+            TEST_DATABASE_URL: postgres://user@localhost:5432/letsbook_test
       - run: sudo mkdir -p $CIRCLE_TEST_REPORTS/phpunit
-      - run: ./cc-test-reporter before-build
       - run: yarn lint; yarn coverage; yarn report;
-      - run: ./cc-test-reporter after-build -t lcov --exit-code $?
       - run: bash .circleci/setup-heroku.sh
       - add_ssh_keys:
           fingerprints:
