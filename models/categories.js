@@ -1,13 +1,11 @@
 const query = require('../db/index').query;
 
-//const categorySerializer = require('../serializers/categories');
 const common = require('./common');
 let tableName = 'categories';
 
 exports.all = async () =>{
   return common.all(tableName);
 };
-//exports.all = Promise.all( Categories.all());
 
 exports.findBy = async property => {
   return common.findBy(tableName, property);

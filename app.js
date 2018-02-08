@@ -7,6 +7,7 @@ const logger = require('morgan');
 const index = require('./routes/index');
 const login = require('./routes/login');
 const users = require('./routes/users');
+const categories = require('./routes/categories');
 
 const app = express();
 app.use(cors());
@@ -19,6 +20,7 @@ app.use(cookieParser());
 app.use('/', index);
 app.use('/login', login);
 app.use('/users', users);
+app.use('/categories', categories);
 
 app.use(function (req, res, next) {
   const err = new Error('Not Found');
