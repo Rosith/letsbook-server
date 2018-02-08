@@ -1,4 +1,5 @@
 const User = require('../../models/user');
+const Categories = require('../../models/categories');
 
 const randomDigits = () => {
   const pad = '0000';
@@ -20,4 +21,16 @@ exports.createUser = async overrides => {
   };
 
   return await User.create({ ...defaults, ...overrides });
+};
+
+exports.createCategory = async overrides => {
+  const randomNumber = randomDigits();
+
+  const defaults = {
+    name: `Alpha${randomNumber}`,
+    description: `Rays ${randomNumber}`,
+    active: true,
+  };
+
+  return await Categories.create({ ...defaults, ...overrides });
 };
