@@ -12,8 +12,8 @@ describe('Admin users', () => {
   it('are the only users who can create users', async () => {
     const admin = await createUser({
       admin: true,
-
     });
+
     const newUserAttributes = {
       firstName: 'Chandra',
       lastName: 'Bose',

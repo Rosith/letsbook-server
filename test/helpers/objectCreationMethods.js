@@ -1,5 +1,6 @@
 const User = require('../../models/user');
 const Categories = require('../../models/categories');
+const Services = require('../../models/services');
 
 const randomDigits = () => {
   const pad = '0000';
@@ -33,4 +34,19 @@ exports.createCategory = async overrides => {
   };
 
   return await Categories.create({ ...defaults, ...overrides });
+};
+
+exports.createService = async overrides => {
+  const randomNumber = randomDigits();
+  const category = await exports.createCategory();
+
+  const defaults = {
+    categoryId: category.id,
+    name: `Alpha ${randomNumber}`,
+    description: `Rays ${randomNumber}`,
+    icon: 'icon/icon1.png',
+    active: true,
+  };
+
+  return await Services.create({ ...defaults, ...overrides });
 };

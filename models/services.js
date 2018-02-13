@@ -1,7 +1,7 @@
-const query = require('../db/index').query;
+const query = require('../db').query;
 
 const common = require('./common');
-let tableName = 'categories';
+let tableName = 'services';
 
 exports.all = async () =>{
   return common.all(tableName);
@@ -18,12 +18,14 @@ exports.create = async properties => {
   }
 
   const createdItem = (await query(
-    `INSERT INTO "categories"(
-      "name", "description", "active") 
-      values ($1, $2, $3) returning *`,
+    `INSERT INTO "services"(
+      "categoryId", "name", "description", "icon", "active") 
+      values ($1, $2, $3, $4, $5) returning *`,
     [
+      properties.categoryId,
       properties.name,
       properties.description,
+      properties.icon ? properties.icon : '',
       properties.active ? properties.active : false,
     ]
   )).rows[0];
@@ -40,14 +42,18 @@ exports.update = async newProperties => {
   }
 
   const updatedCategory = (await query(
-    `UPDATE "categories" SET
-      "name"=$1,
-      "description"=$2,
-      "active"=$3
-     WHERE id=$4 RETURNING *`,
+    `UPDATE "services" SET
+      "categoryId"=$1,
+      "name"=$2,
+      "description"=$3,
+      "icon"=$4,
+      "active"=$5
+     WHERE id=$6 RETURNING *`,
     [
+      properties.categoryId,
       properties.name,
       properties.description,
+      properties.icon,
       properties.active,
       properties.id,
     ]
@@ -57,7 +63,8 @@ exports.update = async newProperties => {
 };
 
 async function validate(properties) {
-  const requiredProperties = ['name', 'description'];
+
+  const requiredProperties = ['categoryId', 'name', 'description'];
   const errors = common.validateRequired(properties, requiredProperties);
 
   const existingName = await exports.findBy({ name: properties.name });

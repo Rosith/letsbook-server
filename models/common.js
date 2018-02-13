@@ -2,6 +2,7 @@ const query = require('../db/index').query;
 
 exports.all = async (tableName) => {
   const users = (await query(`SELECT * FROM "${tableName}"`)).rows;
+
   return users;
 };
 
