@@ -1,3 +1,4 @@
+CREATE TABLE IF NOT EXISTS "categories"(
   "id"                              SERIAL            PRIMARY KEY  NOT NULL,
   "name"                            VARCHAR(100)      NOT NULL,
   "description"                     VARCHAR(500)      NOT NULL,
