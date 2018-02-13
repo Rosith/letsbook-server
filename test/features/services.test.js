@@ -14,6 +14,7 @@ describe('Services', () => {
       .expect(200);
 
     expect(resServices.body.services.length).toEqual(1);
+
     const newService = resServices.body.services[0];
     expect(newService.id).not.toBe(undefined);
     expect(newService).toEqual({
