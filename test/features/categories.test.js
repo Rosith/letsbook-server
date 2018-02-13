@@ -14,6 +14,7 @@ describe('Categories', () => {
       .expect(200);
 
     expect(resCategory.body.categories.length).toEqual(1);
+
     const newCategory = resCategory.body.categories[0];
     expect(newCategory.id).not.toBe(undefined);
     expect(newCategory).toEqual({

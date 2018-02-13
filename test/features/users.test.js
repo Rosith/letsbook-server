@@ -25,6 +25,7 @@ describe('Users', () => {
       .expect(200);
 
     expect(resLoggedIn.body.users.length).toEqual(1);
+
     const newUser = resLoggedIn.body.users[0];
     expect(resLoggedIn.jwt).toBe(undefined);
     expect(newUser.id).not.toBe(undefined);
