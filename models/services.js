@@ -46,7 +46,7 @@ exports.update = async newProperties => {
       "categoryId"=$1,
       "name"=$2,
       "description"=$3,
-      "icone"=$4
+      "icon"=$4,
       "active"=$5
      WHERE id=$6 RETURNING *`,
     [

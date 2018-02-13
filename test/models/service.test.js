@@ -7,10 +7,9 @@ const createCategory = require('../helpers/objectCreationMethods').createCategor
 
 describe('Services', () => {
   it('can be created!', async () => {
-    const category = createCategory({});
+    const category = await createCategory();
     const servicesBefore = await Services.all();
     expect(servicesBefore.length).toBe(0);
-
     await Services.create({
       categoryId: category.id,
       name: 'wash',
@@ -35,7 +34,7 @@ describe('Services', () => {
   });
 
   it('must have unique name', async () => {
-    const category = createCategory();
+    const category = await createCategory();
 
     await Services.create({
       categoryId: category.id,
@@ -58,7 +57,7 @@ describe('Services', () => {
   });
 
   it('can be updated', async () => {
-    const category = createCategory();
+    const category = await createCategory();
     const originalServices = await Services.create({
       categoryId: category.id,
       name: 'Mercedez',
