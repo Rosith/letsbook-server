@@ -4,13 +4,11 @@ const request = require('supertest');
 require('../helpers/testSetup');
 
 const app = require('../../app');
-
 const createCategory = require('../helpers/objectCreationMethods').createCategory;
 
 describe('Categories', () => {
   it('can be listed for any user', async () => {
     const category = await createCategory();
-
     const resCategory = await request(app)
       .get('/categories')
       .expect(200);

@@ -33,8 +33,8 @@ exports.create = async properties => {
 exports.update = async newProperties => {
   const oldProps = await this.findBy({ id: newProperties.id });
   const properties = { ...oldProps, ...newProperties };
-
   const errors = await validate(properties);
+
   if (errors) {
     return { errors };
   }
@@ -57,17 +57,16 @@ exports.update = async newProperties => {
 };
 
 async function validate(properties) {
-
   const requiredProperties = ['name', 'description'];
   const errors = common.validateRequired(properties, requiredProperties);
 
   const existingName = await exports.findBy({ name: properties.name });
   const thatNameIsntMe = existingName ? existingName.id !== Number(properties.id) : false;
+
   if (existingName && thatNameIsntMe) {
     const error = 'Name already taken';
     errors.push(error);
   }
-
   if (errors.length > 0) {
     return errors;
   }

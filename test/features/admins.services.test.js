@@ -10,11 +10,11 @@ const createUser = require('../helpers/objectCreationMethods').createUser;
 const createCategory = require('../helpers/objectCreationMethods').createCategory;
 
 describe('Admin users', () => {
-
   it('are the only users who can create new Services', async () => {
     const admin = await createUser({
       admin: true,
     });
+
     const category = await createCategory();
     const newServiceAttributes = {
       categoryId: category.id,
@@ -42,7 +42,6 @@ describe('Admin users', () => {
     expect(userRes.body).toEqual({ error: { status: 404 }, message: 'Not Found' });
 
     const adminToken = jwt.sign({ currentUserId: admin.id }, process.env.JWT_SECRET);
-
     const adminRes = await request(app)
       .post('/categories')
       .set('jwt', adminToken)

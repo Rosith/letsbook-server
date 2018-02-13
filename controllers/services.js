@@ -12,7 +12,8 @@ exports.create = async (req, res, next) => {
   const service = await Services.create(req.body);
   if (service.errors) {
     res.json({ service });
-  } else {
+  }
+  else {
     const serializedServices = await serviceSerializer(service);
     res.json({ service: serializedServices });
   }

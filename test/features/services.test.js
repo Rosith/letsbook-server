@@ -4,13 +4,11 @@ const request = require('supertest');
 require('../helpers/testSetup');
 
 const app = require('../../app');
-
 const createService = require('../helpers/objectCreationMethods').createService;
 
 describe('Services', () => {
   it('can be listed for any user', async () => {
     const service = await createService();
-
     const resServices = await request(app)
       .get('/services')
       .expect(200);

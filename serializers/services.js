@@ -6,5 +6,6 @@ module.exports = async services => {
     description: services.description,
     active: services.active,
   };
+
   return serialized;
 };
