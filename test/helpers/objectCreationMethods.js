@@ -50,3 +50,18 @@ exports.createService = async overrides => {
 
   return await Services.create({ ...defaults, ...overrides });
 };
+
+exports.createPackage = async overrides => {
+  const randomNumber = randomDigits();
+  const service = await exports.createService();
+
+  const defaults = {
+    serviceId: service.id,
+    name: `service ${randomNumber}`,
+    description: `do this service no ${randomNumber}`,
+    icon: 'icon/icon1.png',
+    active: true,
+  };
+
+  return await Services.create({ ...defaults, ...overrides });
+};
