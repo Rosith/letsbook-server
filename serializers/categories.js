@@ -5,5 +5,6 @@ module.exports = async categories => {
     description: categories.description,
     active: categories.active,
   };
+
   return serialized;
 };

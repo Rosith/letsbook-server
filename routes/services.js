@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const categoriesController = require('../controllers/categories');
+const servicesController = require('../controllers/services');
 const verifyAdmin = require('../lib/verifyAdmin');
 const verifyLoggedInUser = require('../lib/verifyLoggedInUser');
 
-router.get('/', categoriesController.index);
+router.get('/', servicesController.index);
 router.use(verifyLoggedInUser);
 router.use(verifyAdmin);
-router.put('/:id', categoriesController.update);
-router.post('/', categoriesController.create);
+router.put('/:id', servicesController.update);
+router.post('/', servicesController.create);
 
 module.exports = router;
