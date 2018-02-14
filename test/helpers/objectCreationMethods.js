@@ -1,6 +1,7 @@
 const User = require('../../models/user');
 const Categories = require('../../models/categories');
 const Services = require('../../models/services');
+const Packages = require('../../models/packages');
 
 const randomDigits = () => {
   const pad = '0000';
@@ -53,7 +54,7 @@ exports.createService = async overrides => {
 
 exports.createPackage = async overrides => {
   const randomNumber = randomDigits();
-  const service = await exports.createService();
+  const service = await exports.createService(overrides);
 
   const defaults = {
     serviceId: service.id,
@@ -63,5 +64,5 @@ exports.createPackage = async overrides => {
     active: true,
   };
 
-  return await Services.create({ ...defaults, ...overrides });
+  return await Packages.create({ ...defaults, ...overrides });
 };
