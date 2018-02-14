@@ -9,6 +9,7 @@ const login = require('./routes/login');
 const users = require('./routes/users');
 const categories = require('./routes/categories');
 const services = require('./routes/services');
+const packages = require('./routes/packages');
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,7 @@ app.use('/login', login);
 app.use('/users', users);
 app.use('/categories', categories);
 app.use('/services', services);
+app.use('/packages', packages);
 
 app.use(function (req, res, next) {
   const err = new Error('Not Found');
