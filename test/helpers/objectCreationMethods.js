@@ -2,6 +2,7 @@ const User = require('../../models/user');
 const Categories = require('../../models/categories');
 const Services = require('../../models/services');
 const Packages = require('../../models/packages');
+const Customers = require('../../models/customers');
 
 const randomDigits = () => {
   const pad = '0000';
@@ -23,6 +24,20 @@ exports.createUser = async overrides => {
   };
 
   return await User.create({ ...defaults, ...overrides });
+};
+
+exports.createCustomer = async overrides => {
+  const randomNumber = randomDigits();
+
+  const defaults = {
+    firstName: `Alpha${randomNumber}`,
+    lastName: `Rays${randomNumber}`,
+    email: `alpha${randomNumber}@example.com`,
+    mobile: 1234567890,
+    password: 'password',
+  };
+
+  return await Customers.create({ ...defaults, ...overrides });
 };
 
 exports.createCategory = async overrides => {
