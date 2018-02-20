@@ -2,99 +2,85 @@ const expect = require('expect');
 
 require('../helpers/testSetup');
 
-const User = require('../../models/user');
+const Customers = require('../../models/customers');
 
-describe('User', () => {
+describe('Customers', () => {
   it('can be created', async () => {
-    const usersBefore = await User.all();
-    expect(usersBefore.length).toBe(0);
+    const customersBefore = await Customers.all();
+    expect(customersBefore.length).toBe(0);
 
-    await User.create({
+    await Customers.create({
       firstName: 'Mercedez',
       lastName: 'Goodman',
       email: 'mercedez@example.com',
-      admin: true,
-      role: 1,
       mobile: 1234567890,
       password: 'password',
     });
-    const usersAfter = await User.all();
+    const usersAfter = await Customers.all();
     expect(usersAfter.length).toBe(1);
     expect(usersAfter[0].firstName).toBe('Mercedez');
     expect(usersAfter[0].lastName).toBe('Goodman');
     expect(usersAfter[0].email).toBe('mercedez@example.com');
-    expect(usersAfter[0].admin).toBe(true);
-    expect(usersAfter[0].role).toBe(1);
   });
 
-  it('must have email, password, firstName, lastName, hireDate', async () => {
-    const user = await User.create({});
+  it('must have email, firstName, lastName, hireDate', async () => {
+    const user = await Customers.create({});
     expect(user).toEqual({ errors: [
       'Email cannot be blank',
       'First Name cannot be blank',
       'Last Name cannot be blank',
-      'Password cannot be blank',
     ] });
   });
 
-  it('must have unique email and to be created', async () => {
-    await User.create({
+  it('must have unique email to be created', async () => {
+    await Customers.create({
       firstName: 'Mercedez',
       lastName: 'Goodman',
       email: 'mercedez@example.com',
-      admin: true,
-      role: 1,
       mobile: 1234567890,
       password: 'password',
     });
-    const duplicateUser = await User.create({
+    const duplicateCustomers = await Customers.create({
       firstName: 'Mercedez',
       lastName: 'Goodman',
       email: 'mercedez@example.com',
-      admin: true,
-      role: 1,
       mobile: 1234567890,
       password: 'password',
     });
 
-    expect(duplicateUser).toEqual({ errors: [
+    expect(duplicateCustomers).toEqual({ errors: [
       'Email already taken',
+      'Mobile already taken',
     ] });
-    const users = await User.all();
+    const users = await Customers.all();
     expect(users.length).toBe(1);
   });
 
   it('can be updated', async () => {
-    const originalUser = await User.create({
+    const originalCustomers = await Customers.create({
       firstName: 'Mercedez',
       lastName: 'Goodman',
       email: 'mercedez@example.com',
-      admin: true,
-      role: 1,
       mobile: 1234567890,
       password: 'password',
     });
-    const updatedUser = await User.update({
-      id: originalUser.id,
+    const updatedCustomers = await Customers.update({
+      id: originalCustomers.id,
       firstName: 'Herschel',
       lastName: 'Ammons',
       email: 'ammons@example.com',
-      admin: true,
-      role: 1,
       mobile: 1994567890,
       password: 'password',
     });
 
-    expect(updatedUser.firstName).toBe('Herschel');
-    expect(updatedUser.lastName).toBe('Ammons');
-    expect(updatedUser.email).toBe('ammons@example.com');
-    expect(updatedUser.admin).toBe(true);
-    expect(updatedUser.role).toEqual(1);
-    expect(updatedUser.passwordDigest).not.toBe(originalUser.passwordDigest);
+    expect(updatedCustomers.firstName).toBe('Herschel');
+    expect(updatedCustomers.lastName).toBe('Ammons');
+    expect(updatedCustomers.email).toBe('ammons@example.com');
+    expect(updatedCustomers.passwordDigest).not.toBe(originalCustomers.passwordDigest);
   });
 
   it('removes whitespace and down case email on create/update', async () => {
-    const user = await User.create({
+    const user = await Customers.create({
       firstName: 'Christel',
       lastName: 'Lippman',
       email: '  ChristelLippman@example.com ',
@@ -104,41 +90,41 @@ describe('User', () => {
     expect(user.email).toEqual('christellippman@example.com');
   });
 
-  it('must have unique email to be updated', async () => {
-    const firstUser = await User.create({
+  it('must have unique email and mobile to be updated', async () => {
+    const firstCustomers = await Customers.create({
       firstName: 'Christel',
       lastName: 'Lippman',
-      admin: true,
-      role: 1,
       mobile: 1994567890,
       email: 'christellippman@example.com',
       password: 'password',
     });
-    const secondUser = await User.create({
+    const secondCustomers = await Customers.create({
       firstName: 'Herschel',
       lastName: 'Ammons',
       email: 'ammons@example.com',
-      role: 3,
-      mobile: 1994567890,
+      mobile: 1994567891,
       password: 'password',
     });
-    const updateSecondUser = await User.update({
-      id: secondUser.id,
+    const updateSecondCustomers = await Customers.update({
+      id: secondCustomers.id,
       firstName: 'Jayna',
       lastName: 'Tippins',
-      email: firstUser.email,
+      email: firstCustomers.email,
+      mobile: firstCustomers.mobile,
       password: 'password',
     });
 
-    expect(updateSecondUser).toEqual({ errors: [
+    expect(updateSecondCustomers).toEqual({ errors: [
       'Email already taken',
+      'Mobile already taken',
     ] });
-    const secondUserRecord = await User.find(secondUser.id);
-    expect(secondUserRecord.email).toEqual('ammons@example.com');
+    const secondCustomersRecord = await Customers.find(secondCustomers.id);
+    expect(secondCustomersRecord.email).toEqual('ammons@example.com');
+    expect(secondCustomersRecord.mobile).toEqual('1994567891');
   });
 
   it('can update user using same email address', async () => {
-    const user = await User.create({
+    const user = await Customers.create({
       firstName: 'Herschel',
       lastName: 'Ammons',
       email: 'ammons@example.com',
@@ -146,19 +132,19 @@ describe('User', () => {
       password: 'password',
     });
 
-    const updatedUser = await User.update({
+    const updatedCustomers = await Customers.update({
       id: user.id,
       firstName: 'Jayna',
       lastName: 'Tippins',
       email: 'ammons@example.com',
     });
 
-    expect(updatedUser.firstName).toEqual(updatedUser.firstName);
-    expect(updatedUser.email).toEqual(user.email);
+    expect(updatedCustomers.firstName).toEqual(updatedCustomers.firstName);
+    expect(updatedCustomers.email).toEqual(user.email);
   });
 
   it('can be found by id', async () => {
-    const user = await User.create({
+    const user = await Customers.create({
       firstName: 'Herschel',
       lastName: 'Ammons',
       email: 'ammons@example.com',
@@ -166,14 +152,14 @@ describe('User', () => {
       password: 'password',
     });
 
-    const foundUser = await User.find(user.id);
-    expect(foundUser.firstName).toEqual('Herschel');
-    expect(foundUser.lastName).toEqual('Ammons');
-    expect(foundUser.email).toEqual('ammons@example.com');
+    const foundCustomers = await Customers.find(user.id);
+    expect(foundCustomers.firstName).toEqual('Herschel');
+    expect(foundCustomers.lastName).toEqual('Ammons');
+    expect(foundCustomers.email).toEqual('ammons@example.com');
   });
 
   it('can be found by email', async () => {
-    await User.create({
+    await Customers.create({
       firstName: 'Herschel',
       lastName: 'Ammons',
       email: 'ammons@example.com',
@@ -181,9 +167,9 @@ describe('User', () => {
       password: 'password',
     });
 
-    const foundUserByEmail = await User.findBy({ email: 'ammons@example.com' });
-    expect(foundUserByEmail.firstName).toEqual('Herschel');
-    expect(foundUserByEmail.lastName).toEqual('Ammons');
-    expect(foundUserByEmail.email).toEqual('ammons@example.com');
+    const foundCustomersByEmail = await Customers.findBy({ email: 'ammons@example.com' });
+    expect(foundCustomersByEmail.firstName).toEqual('Herschel');
+    expect(foundCustomersByEmail.lastName).toEqual('Ammons');
+    expect(foundCustomersByEmail.email).toEqual('ammons@example.com');
   });
 });
